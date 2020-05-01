@@ -14,10 +14,6 @@ TEST_DATA_DIR = "cars_test"
 IMG_SIZE = 100
 training_data = []
 
-
-
-
-
 """Getting class identifiers (labels) from the matlab file"""
 class_values_mat = scipy.io.loadmat("cars_train_annos.mat")
 class_names_mat = scipy.io.loadmat("cars_meta.mat")
@@ -30,7 +26,6 @@ print(class_values_data)
 train_label_list = []
 for i in class_values_data :
     train_label_list.append([i[4]])
-
 
 
 """Iterating through all images, resizing them, appending them to a list"""

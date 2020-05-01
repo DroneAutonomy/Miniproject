@@ -44,5 +44,6 @@ model.add(keras.layers.Dense(197, activation=tf.nn.softmax))
 
 model.compile(loss="sparse_categorical_crossentropy", optimizer="adam", metrics=["accuracy"])
 
-model.fit(x_train_loaded, y_train_loaded, batch_size=32, validation_split=0.1, epochs=8)
+model.fit(x_train_loaded, y_train_loaded, batch_size=32, validation_split=0.1, epochs=10)
 
+model.save("car_classifier_model")
