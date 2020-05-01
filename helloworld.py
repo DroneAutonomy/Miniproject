@@ -23,7 +23,7 @@ model.add(tf.keras.layers.Dense(128, activation = tf.nn.relu))
 model.add(tf.keras.layers.Dense(128, activation = tf.nn.relu))
 
 
-"""Output layer: Softmax function - gives probability distribution where total is 1"""
+"""Output layer: Softmax function - gives probability distribution where total is 1A"""
 model.add(tf.keras.layers.Dense(10, activation = tf.nn.softmax))
 
 
