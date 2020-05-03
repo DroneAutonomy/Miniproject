@@ -6,12 +6,9 @@ import numpy as np
 mnist = tf.keras.datasets.mnist  #images of hand-written images 0-9
 
 (x_train, y_train), (x_test, y_test) = mnist.load_data()
-
 """Normalize data:"""
 x_train = tf.keras.utils.normalize(x_train, axis=1)
 x_test = tf.keras.utils.normalize(x_test, axis=1)
-
-
 """Building the model:"""
 model = tf.keras.models.Sequential() # using feedforward
 
@@ -42,10 +39,3 @@ print(val_loss, val_acc)
 plt.imshow(x_train[0], cmap =  plt.cm.binary)
 plt.show()
 
-
-"""
-Save model: model.save("model_name")
-Load model: tf.keras.models.load_model("model_name")
-Predictions: predictions = model.predict([x_test]) 
-    print(np.argmax(predicitons[0])
-"""

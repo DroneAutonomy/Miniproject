@@ -21,29 +21,30 @@ y_train_loaded = np.array(y_train_loaded)
 pickle_in.close()
 
 
+
 x_train_loaded = keras.utils.normalize(x_train_loaded, axis=1)
 
 
+"""Feedforward network"""
 model = keras.models.Sequential()
 """Start with the convolutional layer"""
-model.add(keras.layers.Conv2D(64, (3,3), activation=tf.nn.relu, input_shape=x_train_loaded.shape[1:]))
-
+model.add(keras.layers.Conv2D(64, (3,3), activation="relu", input_shape=x_train_loaded.shape[1:]))
 """Adding maxpooling layer with size (2,2)"""
 model.add(keras.layers.MaxPooling2D(pool_size=(2,2)))
 
 """Doing the same one more time"""
-model.add(keras.layers.Conv2D(64, (3,3), activation=tf.nn.relu))
+model.add(keras.layers.Conv2D(64, (3,3), activation="relu"))
 model.add(keras.layers.MaxPooling2D(pool_size=(2,2)))
 
 model.add(keras.layers.Flatten())
-model.add(keras.layers.Dense(128))
+model.add(keras.layers.Dense(128, activation="relu"))
 
 """output layer """
-model.add(keras.layers.Dense(197, activation=tf.nn.softmax))
-
-
+model.add(keras.layers.Dense(197, activation="softmax"))
+"""Compiling model, defining loss function, optimizer and metrics"""
 model.compile(loss="sparse_categorical_crossentropy", optimizer="adam", metrics=["accuracy"])
-
+"""Beginning training"""
 model.fit(x_train_loaded, y_train_loaded, batch_size=32, validation_split=0.1, epochs=10)
 
 model.save("car_classifier_model")
+

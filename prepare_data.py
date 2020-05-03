@@ -17,11 +17,13 @@ training_data = []
 """Getting class identifiers (labels) from the matlab file"""
 class_values_mat = scipy.io.loadmat("cars_train_annos.mat")
 class_names_mat = scipy.io.loadmat("cars_meta.mat")
-
-class_values_data = [[img_nr.flat[0] for img_nr in item] for item in class_values_mat["annotations"][0]] # data into list
+"""Taking the .mat data and putting it into lists"""
+class_values_data = [[img_nr.flat[0] for img_nr in item] for item in class_values_mat["annotations"][0]]
 class_names_list = [item.flat[0] for item in class_names_mat["class_names"][0]]
 
-print(class_values_data)
+print("class values: " +str(class_values_data))
+print("names" + str(class_names_list))
+
 """Appending the only data we want: labels"""
 train_label_list = []
 for i in class_values_data :
@@ -60,7 +62,7 @@ for features, label in training_data:
     y_train.append(label)
 
 """In order to use the data it must be in a numpy array - keras uses numpy array as input"""
-x_train = np.array(x_train).reshape(-1, IMG_SIZE, IMG_SIZE,1)
+x_train = np.array(x_train).reshape(-1, IMG_SIZE, IMG_SIZE, 1)
 
 
 """Save the data, so it does not have to load each time"""
@@ -70,6 +72,8 @@ pickle_out.close()
 pickle_out = open("y_train.pickle", "wb")
 pickle.dump(y_train, pickle_out)
 pickle_out.close()
-
+pickle_out = open("class_names.pickle", "wb")
+pickle.dump(class_names_list, pickle_out)
+pickle_out.close()
 
 plt.show()
