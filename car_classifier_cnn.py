@@ -55,3 +55,4 @@ model.compile(loss="sparse_categorical_crossentropy", optimizer="adam", metrics=
 
 model.fit(x_train_loaded, y_train_loaded, batch_size=32, validation_split=0.1, epochs=8, callbacks=[tensorboard])
 
+model.save()
