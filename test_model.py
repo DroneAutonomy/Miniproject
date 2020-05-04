@@ -25,8 +25,10 @@ model = keras.models.load_model("car_classifier_model")
 
 predictions = model.predict(x_train_loaded)
 
-print(class_names[np.argmax(predictions[0])])
 
+for i in range(0,10):
+    plt.figure()
+    plt.imshow(x_train_loaded[i,:,:,0], cmap =  "gray")
+    print(class_names[np.argmax(predictions[i])])
 
-plt.imshow(x_train_loaded[0,:,:,0], cmap =  "gray")
 plt.show()
