@@ -49,5 +49,3 @@ model.compile(loss="sparse_categorical_crossentropy", optimizer="adam", metrics=
 model.fit(x_train_loaded, y_train_loaded, batch_size=32, validation_split=0.3, epochs=10)
 
 model.save("car_classifier_model")
-
-model.save()

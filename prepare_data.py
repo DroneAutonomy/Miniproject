@@ -88,7 +88,7 @@ for features, label in training_data:
     y_train.append(label)
 
 """Test"""
-for features, label in testing_data:
+for features in testing_data:
     x_test.append(features)
 
 """In order to use the data it must be in a numpy array - keras uses numpy array as input"""
