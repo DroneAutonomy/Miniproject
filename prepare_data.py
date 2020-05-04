@@ -15,7 +15,7 @@ IMG_SIZE = 100
 training_data = []
 testing_data = []
 
-"""Getting class identifiers (labels) from the matlab file"""
+"""Getting class identifiers (labels) from the training matlab file"""
 class_values_mat = scipy.io.loadmat("cars_train_annos.mat")
 class_names_mat = scipy.io.loadmat("cars_meta.mat")
 """Taking the .mat data and putting it into lists"""
@@ -23,8 +23,8 @@ class_values_data = [[img_nr.flat[0] for img_nr in item] for item in class_value
 
 """Test/validation data"""
 class_test_values_mat = scipy.io.loadmat("cars_test_annos.mat")
+class_test_values_data = [[img_nr.flat[0] for img_nr in item] for item in class_test_values_mat["annotations"][0]] # data into list
 
-class_values_data = [[img_nr.flat[0] for img_nr in item] for item in class_values_mat["annotations"][0]] # data into list
 class_names_list = [item.flat[0] for item in class_names_mat["class_names"][0]]
 class_names_list.insert(0, "null")
 print("class values: " +str(class_values_data))
@@ -45,7 +45,8 @@ for img in sorted(os.listdir(TRAIN_DATA_DIR)):
         """Converting images to grayscale to reduce data size"""
         img_array = cv2.imread(os.path.join(TRAIN_DATA_DIR, img), cv2.IMREAD_GRAYSCALE)
         """Resizing images with bounding box data"""
-        img_array = img_array[class_values_data[counter][1]:class_values_data[counter][3], class_values_data[counter][0]:class_values_data[counter][2]]
+        img_array = img_array[class_values_data[counter][1]:class_values_data[counter][3],
+                    class_values_data[counter][0]:class_values_data[counter][2]]
 
         """Resizing all images into same size"""
         resized_array = cv2.resize(img_array, (IMG_SIZE, IMG_SIZE))
@@ -62,14 +63,18 @@ counter= 0
 for img in sorted(os.listdir(TEST_DATA_DIR)):
     try:
         """Converting images to grayscale to reduce data size"""
-        img_array = cv2.imread(os.path.join(TEST_DATA_DIR, img), cv2.IMREAD_GRAYSCALE)
+        test_img_array = cv2.imread(os.path.join(TEST_DATA_DIR, img), cv2.IMREAD_GRAYSCALE)
+        """Resizing images with bounding box data"""
+        test_img_array = test_img_array[class_test_values_data[counter][1]:class_test_values_data[counter][3],
+                    class_test_values_data[counter][0]:class_test_values_data[counter][2]]
+
         """Resizing all images into same size"""
-        resized_array = cv2.resize(img_array, (IMG_SIZE, IMG_SIZE))
+        test_resized_array = cv2.resize(test_img_array, (IMG_SIZE, IMG_SIZE))
         """Inserting all training data into an array"""
 
-        testing_data.append([resized_array])
+        testing_data.append([test_resized_array])
         counter += 1
-        sys.stdout.write('\r' + "Loading: " + str(counter/8144*100) + "%")
+        sys.stdout.write('\r' + "Loading: " + str(counter/8041*100) + "%")
     except Exception as e:
         print(e)
 
@@ -83,7 +88,6 @@ x_train = []
 y_train = []
 
 x_test = []
-y_test = []
 
 """Training"""
 for features, label in training_data:
