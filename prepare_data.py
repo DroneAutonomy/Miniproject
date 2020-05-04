@@ -38,6 +38,9 @@ for img in sorted(os.listdir(TRAIN_DATA_DIR)):
     try:
         """Converting images to grayscale to reduce data size"""
         img_array = cv2.imread(os.path.join(TRAIN_DATA_DIR, img), cv2.IMREAD_GRAYSCALE)
+        """Resizing images with bounding box data"""
+        img_array = img_array[class_values_data[counter][1]:class_values_data[counter][3], class_values_data[counter][0]:class_values_data[counter][2]]
+
         """Resizing all images into same size"""
         resized_array = cv2.resize(img_array, (IMG_SIZE, IMG_SIZE))
         """Inserting all training data into an array"""
