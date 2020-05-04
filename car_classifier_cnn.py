@@ -50,3 +50,4 @@ model.fit(x_train_loaded, y_train_loaded, batch_size=32, validation_split=0.3, e
 
 model.save("car_classifier_model")
 
+model.save()
