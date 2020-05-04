@@ -9,8 +9,8 @@ import h5py
 import pickle
 
 
-TRAIN_DATA_DIR = "cars_train"
-TEST_DATA_DIR = "cars_test"
+TRAIN_DATA_DIR = "/Users/lasseskjotthansen/Desktop/images/cars_train"
+TEST_DATA_DIR = "/Users/lasseskjotthansen/Desktop/images/cars_test"
 IMG_SIZE = 100
 training_data = []
 
@@ -46,7 +46,20 @@ for img in sorted(os.listdir(TRAIN_DATA_DIR)):
     except Exception as e:
         print(e)
 
+counter= 0
+for img in sorted(os.listdir(TEST_DATA_DIR)):
+    try:
+        """Converting images to grayscale to reduce data size"""
+        img_array = cv2.imread(os.path.join(TEST_DATA_DIR, img), cv2.IMREAD_GRAYSCALE)
+        """Resizing all images into same size"""
+        resized_array = cv2.resize(img_array, (IMG_SIZE, IMG_SIZE))
+        """Inserting all training data into an array"""
 
+        training_data.append([resized_array, train_label_list[counter]])
+        counter += 1
+        sys.stdout.write('\r' + "Loading: " + str(counter/8144*100) + "%")
+    except Exception as e:
+        print(e)
 
 plt.imshow(training_data[0][0], cmap="gray")
 print("\n" + class_names_list[training_data[0][1][0]])
