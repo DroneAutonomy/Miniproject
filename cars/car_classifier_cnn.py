@@ -39,13 +39,14 @@ model.add(keras.layers.Conv2D(64, (3,3), activation="relu"))
 model.add(keras.layers.MaxPooling2D(pool_size=(2,2)))
 
 model.add(keras.layers.Flatten())
-model.add(keras.layers.Dense(128, activation="relu"))
+model.add(keras.layers.Dense(64, activation="relu"))
 
 """output layer """
 model.add(keras.layers.Dense(197, activation="softmax"))
 """Compiling model, defining loss function, optimizer and metrics"""
 model.compile(loss="sparse_categorical_crossentropy", optimizer="adam", metrics=["accuracy"])
 
-model.fit(x_train_loaded, y_train_loaded, batch_size=32, validation_split=0.1, epochs=10)
+model.fit(x_train_loaded, y_train_loaded, batch_size=32, validation_split=0.3, epochs=10)
 
 model.save("car_classifier_model")
+

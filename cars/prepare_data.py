@@ -42,6 +42,8 @@ for i in class_values_data :
 counter= 0
 for img in sorted(os.listdir(TRAIN_DATA_DIR)):
     try:
+
+
         """Converting images to grayscale to reduce data size"""
         img_array = cv2.imread(os.path.join(TRAIN_DATA_DIR, img), cv2.IMREAD_GRAYSCALE)
         """Resizing images with bounding box data"""
